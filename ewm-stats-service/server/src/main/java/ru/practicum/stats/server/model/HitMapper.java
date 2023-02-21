@@ -1,5 +1,6 @@
 package ru.practicum.stats.server.model;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.stats.dto.HitDto;
 import ru.practicum.stats.dto.StatsDto;
 
@@ -8,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 import static ru.practicum.stats.dto.StatsDtoConstants.DATE_FORMAT;
 
+@UtilityClass
 public class HitMapper {
     public static Hit toHit(HitDto hitDto) {
         return Hit.builder()

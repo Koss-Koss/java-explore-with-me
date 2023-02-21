@@ -27,7 +27,8 @@ public class HitServiceImpl implements HitService {
     @Override
     public HitDto create(HitDto hitDto) {
         Hit hit = HitMapper.toHit(hitDto);
-        hitRepository.save(hit);
+        Hit result = hitRepository.save(hit);
+        log.info("Создана запись в hits: ", result);
         return hitDto;
     }
 
@@ -39,7 +40,7 @@ public class HitServiceImpl implements HitService {
         } else {
             result = hitRepository.findAllUniqueIP(start, end, List.of(uris));
         }
-        log.info(result.toString());
+        log.info("Получена выборка из DB: " + result.toString());
         return result.stream().map(HitMapper::toStatsDto).collect(Collectors.toList());
     }
 
