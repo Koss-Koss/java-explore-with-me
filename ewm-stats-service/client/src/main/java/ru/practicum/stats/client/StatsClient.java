@@ -24,7 +24,8 @@ public class StatsClient {
         return makeAndSendRequest(HttpMethod.POST, path, null, body);
     }
 
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
+    private <T> ResponseEntity<Object> makeAndSendRequest(
+            HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
         ResponseEntity<Object> responseEntity;
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
         try {

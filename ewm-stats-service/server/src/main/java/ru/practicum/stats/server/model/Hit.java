@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 @Entity
-@EqualsAndHashCode(of = "id")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "hits")
 public class Hit {

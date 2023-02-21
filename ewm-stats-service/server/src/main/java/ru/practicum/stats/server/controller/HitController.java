@@ -36,7 +36,7 @@ public class HitController {
             @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
             @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
             @RequestParam String[] uris,
-            @RequestParam(required = false, defaultValue = "false") boolean unique
+            @RequestParam(defaultValue = "false") boolean unique
     ) {
         log.info("Получен запрос GET к эндпоинту: {}",
                 STATS_PATH);
