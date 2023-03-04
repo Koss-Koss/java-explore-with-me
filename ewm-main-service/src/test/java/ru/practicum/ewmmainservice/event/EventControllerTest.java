@@ -78,7 +78,7 @@ class EventControllerTest {
             .initiator(userShortDto)
             .paid(false)
             .title(title)
-            .views(0l)
+            .views(0L)
             .build();
     EventFullDto eventFullDto = EventFullDto.builder()
             .id(eventId)

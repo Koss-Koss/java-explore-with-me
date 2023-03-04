@@ -13,8 +13,7 @@ import ru.practicum.ewmmainservice.compilation.model.dto.*;
 import ru.practicum.ewmmainservice.exception.BadRequestException;
 import ru.practicum.ewmmainservice.exception.NotFoundException;
 
-import static ru.practicum.ewmmainservice.exception.errormessage
-        .ErrorMessageConstants.COMPILATION_ALREADY_EXISTS_MESSAGE;
+import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.COMPILATION_ALREADY_EXISTS_MESSAGE;
 import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.COMPILATION_NOT_FOUND_MESSAGE;
 
 @Service

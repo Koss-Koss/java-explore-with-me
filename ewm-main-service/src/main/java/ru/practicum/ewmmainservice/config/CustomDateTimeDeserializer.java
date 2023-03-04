@@ -12,7 +12,9 @@ import static ru.practicum.ewmmainservice.EwmMainServiceConstants.DATE_TIME_FORM
 
 public class CustomDateTimeDeserializer extends StdDeserializer<LocalDateTime> {
 
-    protected CustomDateTimeDeserializer() { this(null); }
+    protected CustomDateTimeDeserializer() {
+        this(null);
+    }
 
     protected CustomDateTimeDeserializer(Class<?> vc) {
         super(vc);

@@ -13,9 +13,7 @@ import ru.practicum.ewmmainservice.category.model.dto.CategoryMapper;
 import ru.practicum.ewmmainservice.event.EventService;
 import ru.practicum.ewmmainservice.exception.ConflictException;
 
-import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.CATEGORY_ALREADY_EXISTS_MESSAGE;
-import static ru.practicum.ewmmainservice.exception.errormessage
-        .ErrorMessageConstants.DELETE_CATEGORY_WITH_RELATED_EVENTS_MESSAGE;
+import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.*;
 
 @Service
 @RequiredArgsConstructor

@@ -59,8 +59,9 @@ public class EventController {
         if(updateUserEventDto.getLocationDto() != null) {
             LocationValidator.validate(updateUserEventDto.getLocationDto());
         }*/
-        if(updateUserEventDto.getEventDate() != null) {
-            EventDateValidator.validateEventDateCreated(updateUserEventDto.getEventDate()); }
+        if (updateUserEventDto.getEventDate() != null) {
+            EventDateValidator.validateEventDateCreated(updateUserEventDto.getEventDate());
+        }
         return eventService.updateIsPrivate(userId,eventId, updateUserEventDto);
     }
 
@@ -107,7 +108,8 @@ public class EventController {
             @RequestParam(defaultValue = DEFAULT_PAGINATION_SIZE_AS_STRING) int size) {
         if (rangeStart != null & rangeEnd != null) {
             RangeDateValidator.validateRangeStartNotAfterRangeEnd(rangeStart, rangeEnd);
-        }        log.info("Получен запрос GET к эндпоинту: {}{} для списка событий, добавленных пользователем с id = {}. " +
+        }
+        log.info("Получен запрос GET к эндпоинту: {}{} для списка событий, добавленных пользователем с id = {}. " +
                         "Параметры поиска: users = {}, state = {}, categories = {}, rangeStart = {}, rangeEnd = {}. " +
                         "Параметры пагинации: from = {}, size = {}",
                 ADMIN_PATH, EVENT_PATH, users, users, states, categories, rangeStart, rangeEnd, from, size);

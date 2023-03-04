@@ -9,6 +9,8 @@ import java.util.Collection;
 public interface UserService {
 
     UserDto create(UserDto userDto);
+
     Page<UserDto> findAllByIds(Collection<Long> ids, Pageable pageable);
+
     void delete(long id);
 }

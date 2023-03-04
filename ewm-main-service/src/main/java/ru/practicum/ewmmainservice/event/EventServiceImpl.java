@@ -67,7 +67,7 @@ public class EventServiceImpl implements EventService {
             throw new ConflictException(USER_NOT_EVENT_INITIATOR_MESSAGE);
         }
 
-        if(!event.getState().equals(EventState.PENDING) && !event.getState().equals(EventState.CANCELED)) {
+        if (!event.getState().equals(EventState.PENDING) && !event.getState().equals(EventState.CANCELED)) {
             throw new ConflictException(USER_NOT_EVENT_INITIATOR_MESSAGE);
         }
 

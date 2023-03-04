@@ -7,8 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 import static ru.practicum.ewmmainservice.EwmMainServiceConstants.COMPILATION_TITLE_LENGTH_MAX;
-import static ru.practicum.ewmmainservice.exception.errormessage
-        .ErrorMessageConstants.COMPILATION_TITLE_SIZE_INCORRECT_MESSAGE;
+import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.COMPILATION_TITLE_SIZE_INCORRECT_MESSAGE;
 
 @NoArgsConstructor
 @AllArgsConstructor

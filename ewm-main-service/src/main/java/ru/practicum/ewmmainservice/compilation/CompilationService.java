@@ -7,9 +7,13 @@ import ru.practicum.ewmmainservice.compilation.model.dto.NewCompilationDto;
 import ru.practicum.ewmmainservice.compilation.model.dto.UpdateCompilationDto;
 
 public interface CompilationService {
+
     CompilationDto create(NewCompilationDto newCompilationDto);
+
     CompilationDto update(long compilationId, UpdateCompilationDto compilationDto);
+
     void delete(long compilationId);
+
     CompilationDto findById(long compilationId);
 
     Page<CompilationDto> findByPinned(Boolean pinned, Pageable pageable);

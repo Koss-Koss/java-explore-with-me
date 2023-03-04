@@ -21,7 +21,7 @@ public class EventDateValidator {
         if (eventDate.isBefore(LocalDateTime.now())) {
             throw new ConflictException(INCORRECT_EVENT_DATE_CHANGED_NOW_BEFORE_MESSAGE);
         }
-        if (publishedOn !=null &&
+        if (publishedOn != null &&
                 eventDate.isBefore(publishedOn.plusHours(LIMIT_DATE_EVENT_CHANGE_IN_FUTURE_IN_HOURS))) {
             throw new ConflictException(INCORRECT_EVENT_DATE_CHANGED_MESSAGE);
         }

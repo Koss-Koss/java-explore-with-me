@@ -66,7 +66,7 @@ public class ErrorMessageConstants {
     public static final String REQUESTER_EQUALS_INITIATOR_MESSAGE =
             "Инициатор события не может запрашивать участие в нём";
     public static final String UPDATE_REQUEST_WITHOUT_PENDING_STATUS_MESSAGE =
-            "Нельзя изменить статус у заявки на участие не в статусе "+ EventState.PENDING + " для заявки с id = ";
+            "Нельзя изменить статус у заявки на участие не в статусе " + EventState.PENDING + " для заявки с id = ";
     public static final String USER_EMAIL_INCORRECT_MESSAGE = "Указан некорректный email пользователя";
     public static final String USER_GET_NOT_EVENT_INITIATOR_MESSAGE =
             "Запрашивающий информацию пользователь не являетс инициатором события с id = ";
