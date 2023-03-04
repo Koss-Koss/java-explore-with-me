@@ -110,7 +110,7 @@ public class EventController {
         }        log.info("Получен запрос GET к эндпоинту: {}{} для списка событий, добавленных пользователем с id = {}. " +
                         "Параметры поиска: users = {}, state = {}, categories = {}, rangeStart = {}, rangeEnd = {}. " +
                         "Параметры пагинации: from = {}, size = {}",
-                ADMIN_PATH, EVENT_PATH, users, states, categories, rangeStart, rangeEnd, from, size);
+                ADMIN_PATH, EVENT_PATH, users, users, states, categories, rangeStart, rangeEnd, from, size);
         return eventService.findAllByParams(users, states, categories, rangeStart, rangeEnd,
                 PageRequest.of(PaginationUtils.getCalculatedPage(from, size), size, DEFAULT_PAGINATION_SORT)
                 ).getContent();
@@ -142,7 +142,7 @@ public class EventController {
             pageable = PageRequest.of(PaginationUtils.getCalculatedPage(from, size), size, Sort.by("views"));
         } else {
             throw new BadRequestException(INCORRECT_SORT_PARAM_MESSAGE + sort);
-        };
+        }
         log.info("Получен запрос GET к эндпоинту: {} для списка событий. Параметры поиска: " +
                         "text = {}, categories = {}, paid = {}, rangeStart = {}, rangeEnd = {}, onlyAvailable = {}. " +
                         "Параметры пагинации: from = {}, size = {}",

@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 import static ru.practicum.ewmmainservice.EwmMainServiceConstants.*;
-import static ru.practicum.ewmmainservice.EwmMainServiceConstants.EVENT_DESCRIPTION_LENGTH_MAX;
 import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.*;
 
 @NoArgsConstructor

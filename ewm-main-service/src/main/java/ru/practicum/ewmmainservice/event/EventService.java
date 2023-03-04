@@ -2,7 +2,6 @@ package ru.practicum.ewmmainservice.event;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import ru.practicum.ewmmainservice.event.model.Event;
 import ru.practicum.ewmmainservice.event.model.EventState;
 import ru.practicum.ewmmainservice.event.model.dto.*;

@@ -30,5 +30,5 @@ public class LocationServiceImpl  implements LocationService {
         Location updatedLocation = UpdateLocationMapper.toUpdateLocation(location, locationDto);
         log.info("Пользователем изменено событие с id = {}", updatedLocation.getId());
         locationRepository.save(updatedLocation);
-    };
+    }
 }

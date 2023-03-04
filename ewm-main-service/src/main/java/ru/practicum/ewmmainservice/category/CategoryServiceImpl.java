@@ -50,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
             log.error(CATEGORY_ALREADY_EXISTS_MESSAGE + categoryDto.getName());
             throw new ConflictException(CATEGORY_ALREADY_EXISTS_MESSAGE + categoryDto.getName());
         }
-    };
+    }
 
     @Transactional
     @Override

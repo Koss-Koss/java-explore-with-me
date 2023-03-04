@@ -1,12 +1,10 @@
 package ru.practicum.ewmmainservice.event.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import ru.practicum.ewmmainservice.category.model.dto.CategoryDto;
-import ru.practicum.ewmmainservice.config.CustomDateTimeDeserializer;
 import ru.practicum.ewmmainservice.config.CustomDateTimeSerializer;
 import ru.practicum.ewmmainservice.user.model.dto.UserShortDto;
 

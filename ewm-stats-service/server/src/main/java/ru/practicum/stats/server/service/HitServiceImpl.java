@@ -28,7 +28,7 @@ public class HitServiceImpl implements HitService {
     public HitDto create(HitDto hitDto) {
         Hit hit = HitMapper.toHit(hitDto);
         Hit result = hitRepository.save(hit);
-        log.info("Создана запись в hits: ", result);
+        log.info("Создана запись в hits: {}", result);
         return hitDto;
     }
 
