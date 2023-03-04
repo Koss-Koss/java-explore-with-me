@@ -10,20 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmmainservice.category.model.Category;
 import ru.practicum.ewmmainservice.category.model.dto.CategoryDto;
 import ru.practicum.ewmmainservice.category.model.dto.CategoryMapper;
+import ru.practicum.ewmmainservice.event.EventService;
 import ru.practicum.ewmmainservice.exception.ConflictException;
-import ru.practicum.ewmmainservice.user.model.User;
-import ru.practicum.ewmmainservice.user.model.dto.UserDto;
-import ru.practicum.ewmmainservice.user.model.dto.UserMapper;
-
-import java.util.Collection;
 
 import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.CATEGORY_ALREADY_EXISTS_MESSAGE;
+import static ru.practicum.ewmmainservice.exception.errormessage
+        .ErrorMessageConstants.DELETE_CATEGORY_WITH_RELATED_EVENTS_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+    private final EventService eventService;
 
     @Transactional
     @Override
@@ -57,6 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(long id) {
         categoryRepository.extract(id);
+        if (eventService.existsCategoryRelatedEvents(id)) {
+            throw new ConflictException(DELETE_CATEGORY_WITH_RELATED_EVENTS_MESSAGE);
+        }
         categoryRepository.deleteById(id);
         log.info("Удалена категория с id = {}", id);
     }

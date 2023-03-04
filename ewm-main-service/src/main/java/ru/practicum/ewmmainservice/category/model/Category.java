@@ -3,7 +3,6 @@ package ru.practicum.ewmmainservice.category.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.Hibernate;
-import ru.practicum.ewmmainservice.user.model.User;
 
 import javax.persistence.*;
 import java.util.Objects;

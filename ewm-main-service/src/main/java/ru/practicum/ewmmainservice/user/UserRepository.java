@@ -7,7 +7,6 @@ import ru.practicum.ewmmainservice.exception.NotFoundException;
 import ru.practicum.ewmmainservice.user.model.User;
 
 import java.util.Collection;
-import java.util.List;
 
 import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.USER_NOT_FOUND_MESSAGE;
 

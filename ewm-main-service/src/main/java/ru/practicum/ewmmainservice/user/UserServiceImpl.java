@@ -5,18 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmmainservice.exception.ConflictException;
 import ru.practicum.ewmmainservice.user.model.User;
 import ru.practicum.ewmmainservice.user.model.dto.UserDto;
-import ru.practicum.ewmmainservice.user.model.dto.UserShortDto;
 import ru.practicum.ewmmainservice.user.model.dto.UserMapper;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.EMAIL_ALREADY_EXISTS_MESSAGE;
 
@@ -25,11 +21,6 @@ import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageCon
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-
-    /*@Override
-    public UserShortDto findById(long id) {
-        return UserMapper.toUserShortDto(userRepository.extract(id));
-    }*/
 
     @Transactional
     @Override

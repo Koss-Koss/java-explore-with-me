@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.*;
+
 @Getter
 @EqualsAndHashCode
 @Builder(toBuilder = true)
@@ -13,9 +15,9 @@ import javax.validation.constraints.NotEmpty;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserDto {
     Long id;
-    @NotEmpty(message = "Не указано имя (name) пользователя")
+    @NotEmpty(message = USER_NOT_NAME_MESSAGE)
     String name;
-    @NotEmpty(message = "Не указан email пользователя")
-    @Email(message = "Указан некорректный email пользователя")
+    @NotEmpty(message = USER_NOT_EMAIL_MESSAGE)
+    @Email(message = USER_EMAIL_INCORRECT_MESSAGE)
     String email;
 }

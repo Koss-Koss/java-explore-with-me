@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @EqualsAndHashCode
-@Builder(toBuilder = true)
+@Builder
 @ToString
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CategoryDto {

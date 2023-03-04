@@ -1,64 +1,49 @@
 package ru.practicum.stats.client;
 
-import org.springframework.http.*;
-import org.springframework.lang.Nullable;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import ru.practicum.stats.client.baseclient.BaseClient;
+import ru.practicum.stats.dto.HitDto;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Map;
 
-public class StatsClient {
+@Service
+public class StatsClient extends BaseClient {
+    private static final String HIT_PATH = "/hit";
+    private static final String STATS_PATH = "/stats";
+    private static final String STATS_PARAM_START_NAME = "start";
+    private static final String STATS_PARAM_END_NAME = "end";
+    private static final String STATS_PARAM_URIS_NAME = "uris";
+    private static final String STATS_PARAM_UNIQUE_NAME = "unique";
 
-    protected final RestTemplate restTemplate;
-
-    public StatsClient(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public StatsClient(@Value("${ewm-stats-service.uri}") String serverUrl, RestTemplateBuilder builder) {
+        super(
+                builder
+                        .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
+                        .requestFactory(HttpComponentsClientHttpRequestFactory::new)
+                        .build()
+        );
     }
 
-    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
+    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
+        Map<String, Object> param = Map.of(
+                STATS_PARAM_START_NAME, start,
+                STATS_PARAM_END_NAME, end,
+                STATS_PARAM_URIS_NAME, uris,
+                STATS_PARAM_UNIQUE_NAME, unique
+        );
+        return get(STATS_PATH + "?" + STATS_PARAM_START_NAME + "={" + STATS_PARAM_START_NAME + "}&" +
+                STATS_PARAM_END_NAME + "={" + STATS_PARAM_END_NAME + "}&" +
+                STATS_PARAM_URIS_NAME + "={" + STATS_PARAM_URIS_NAME + "}&" +
+                STATS_PARAM_UNIQUE_NAME + "={" + STATS_PARAM_UNIQUE_NAME + "}", param);
     }
 
-    protected <T> ResponseEntity<Object> post(String path, T body) {
-        return makeAndSendRequest(HttpMethod.POST, path, null, body);
+    public ResponseEntity<Object> createHit(HitDto hitDto) {
+        return post(HIT_PATH, hitDto);
     }
-
-    private <T> ResponseEntity<Object> makeAndSendRequest(
-            HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
-        ResponseEntity<Object> responseEntity;
-        HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
-        try {
-            if (parameters != null) {
-                responseEntity = restTemplate.exchange(path, method, requestEntity, Object.class, parameters);
-            } else {
-                responseEntity = restTemplate.exchange(path, method, requestEntity, Object.class);
-            }
-        } catch (HttpStatusCodeException e) {
-            return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
-        }
-        return prepareResponse(responseEntity);
-    }
-
-    private static ResponseEntity<Object> prepareResponse(ResponseEntity<Object> response) {
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return response;
-        }
-
-        ResponseEntity.BodyBuilder responseBuilder = ResponseEntity.status(response.getStatusCode());
-
-        if (response.hasBody()) {
-            return responseBuilder.body(response.getBody());
-        }
-
-        return responseBuilder.build();
-    }
-
-    private HttpHeaders defaultHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-        return headers;
-    }
-
 }

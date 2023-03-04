@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewmmainservice.category.model.dto.CategoryDto;
 import ru.practicum.ewmmainservice.pagination.PaginationUtils;
-import ru.practicum.ewmmainservice.user.model.dto.UserDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -26,45 +25,45 @@ public class CategoryController {
     private final CategoryService categoryService;
     protected static final String CATEGORY_PREFIX = "/{catId}";
 
-    @PostMapping(COMMON_ADMIN_PATH + COMMON_CATEGORY_PATH)
+    @PostMapping(ADMIN_PATH + CATEGORY_PATH)
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryDto create(@Valid @RequestBody CategoryDto categoryDto) {
+    public CategoryDto createIsAdmin(@Valid @RequestBody CategoryDto categoryDto) {
         log.info("Получен запрос POST к эндпоинту: {}. Данные тела запроса: {}",
-                COMMON_ADMIN_PATH + COMMON_CATEGORY_PATH, categoryDto);
+                ADMIN_PATH + CATEGORY_PATH, categoryDto);
         return categoryService.create(categoryDto);
     }
 
-    @PatchMapping(COMMON_ADMIN_PATH + COMMON_CATEGORY_PATH + CATEGORY_PREFIX)
-    public CategoryDto update(@Valid @RequestBody CategoryDto categoryDto,
-                              @PathVariable long catId) {
+    @PatchMapping(ADMIN_PATH + CATEGORY_PATH + CATEGORY_PREFIX)
+    public CategoryDto updateIsAdmin(@Valid @RequestBody CategoryDto categoryDto,
+                                     @PathVariable long catId) {
         log.info("Получен запрос PATCH к эндпоинту: {}/{}. Данные тела запроса: {}",
-                COMMON_ADMIN_PATH + COMMON_CATEGORY_PATH, catId, categoryDto);
+                ADMIN_PATH + CATEGORY_PATH, catId, categoryDto);
         return categoryService.update(catId, categoryDto);
     }
 
-    @DeleteMapping(COMMON_ADMIN_PATH + COMMON_CATEGORY_PATH + CATEGORY_PREFIX)
+    @DeleteMapping(ADMIN_PATH + CATEGORY_PATH + CATEGORY_PREFIX)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable long catId) {
-        log.info("Получен запрос DELETE к эндпоинту: {}/{}", COMMON_ADMIN_PATH + COMMON_CATEGORY_PATH, catId);
+    public void deleteIsAdmin(@PathVariable long catId) {
+        log.info("Получен запрос DELETE к эндпоинту: {}/{}", ADMIN_PATH + CATEGORY_PATH, catId);
         categoryService.delete(catId);
     }
 
-    @GetMapping(COMMON_CATEGORY_PATH)
-    public Collection<CategoryDto> getAllCategories(
+    @GetMapping(CATEGORY_PATH)
+    public Collection<CategoryDto> getAllIsPublic(
             @PositiveOrZero(message = NEGATIVE_FROM_ERROR)
             @RequestParam(defaultValue = DEFAULT_PAGINATION_FROM_AS_STRING) int from,
             @Positive(message = NOT_POSITIVE_SIZE_ERROR)
             @RequestParam(defaultValue = DEFAULT_PAGINATION_SIZE_AS_STRING) int size) {
         log.info("Получен запрос GET к эндпоинту: {}. Параметры пагинации: from = {}, size = {}",
-                COMMON_CATEGORY_PATH, from, size);
+                CATEGORY_PATH, from, size);
         return categoryService.findAll(
                 PageRequest.of(PaginationUtils.getCalculatedPage(from, size), size, DEFAULT_PAGINATION_SORT)
         ).getContent();
     }
 
-    @GetMapping(COMMON_CATEGORY_PATH + CATEGORY_PREFIX)
-    public CategoryDto getCategoryById(@PathVariable long catId) {
-        log.info("Получен запрос GET к эндпоинту: {}/{}", COMMON_CATEGORY_PATH, catId);
+    @GetMapping(CATEGORY_PATH + CATEGORY_PREFIX)
+    public CategoryDto getByIdIsPublic(@PathVariable long catId) {
+        log.info("Получен запрос GET к эндпоинту: {}/{}", CATEGORY_PATH, catId);
         return categoryService.findById(catId);
     }
 }

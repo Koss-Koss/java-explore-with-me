@@ -1,9 +1,11 @@
 package ru.practicum.ewmmainservice.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -36,23 +38,15 @@ public class ErrorHandler {
         return errorMessage;
     }
 
-    /*@ExceptionHandler(value = {ForbiddenException.class})
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorMessage handleForbiddenException(Exception exception) {
-        int statusCode = HttpStatus.FORBIDDEN.value();
-        ErrorMessage errorMessage = new ErrorMessage(statusCode, exception.getMessage());
+    @ExceptionHandler(value = {BadRequestException.class})
+    @ResponseStatus(BAD_REQUEST)
+    public ErrorMessage handleBadRequestException(Exception exception, WebRequest request) {
+        int statusCode = BAD_REQUEST.value();
+        ErrorMessage errorMessage =
+                new ErrorMessage(new Date(), statusCode, exception.getMessage(), request.getDescription(false));
         log.info("Ошибка запроса {} - {}", statusCode, exception.getMessage());
         return errorMessage;
-    }*/
-
-    /*@ExceptionHandler(value = {InvalidConditionException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorMessage handleInvalidConditionsException(Exception exception) {
-        int statusCode = HttpStatus.BAD_REQUEST.value();
-        ErrorMessage errorMessage = new ErrorMessage(statusCode, exception.getMessage());
-        log.info("Ошибка запроса {} - {}", statusCode, exception.getMessage());
-        return errorMessage;
-    }*/
+    }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseStatus(BAD_REQUEST)
@@ -61,6 +55,40 @@ public class ErrorHandler {
         int statusCode = BAD_REQUEST.value();
         ErrorMessage errorMessage =
                 new ErrorMessage(new Date(), statusCode, exception.getMessage(), request.getDescription(false));
+        log.info("Ошибка запроса {} - {}", statusCode, exception.getMessage());
+        return errorMessage;
+    }
+
+    @ExceptionHandler(value = {MissingServletRequestParameterException.class})
+    @ResponseStatus(BAD_REQUEST)
+    public ErrorMessage handleMissingServletRequestParameterException(
+            MissingServletRequestParameterException exception, WebRequest request) {
+        int statusCode = BAD_REQUEST.value();
+        ErrorMessage errorMessage =
+                new ErrorMessage(new Date(), statusCode, exception.getMessage(), request.getDescription(false));
+        log.info("Ошибка запроса {} - {}", statusCode, exception.getMessage());
+        return errorMessage;
+    }
+
+    @ExceptionHandler(value = {DataIntegrityViolationException.class})
+    @ResponseStatus(CONFLICT)
+    public ErrorMessage handleDataIntegrityViolationException(
+            DataIntegrityViolationException exception, WebRequest request) {
+        int statusCode = CONFLICT.value();
+        ErrorMessage errorMessage =
+                new ErrorMessage(new Date(), statusCode, exception.getMessage(), request.getDescription(false));
+        log.info("Ошибка запроса {} - {}", statusCode, exception.getMessage());
+        return errorMessage;
+    }
+
+    @ExceptionHandler(value = {ConstraintViolationException.class})
+    @ResponseStatus(CONFLICT)
+    public ErrorMessage handleConstraintViolationException(
+            ConstraintViolationException exception, WebRequest request) {
+        int statusCode = CONFLICT.value();
+        ErrorMessage errorMessage =
+                new ErrorMessage(new Date(), statusCode, exception.getSQLException().getMessage(),
+                        request.getDescription(false));
         log.info("Ошибка запроса {} - {}", statusCode, exception.getMessage());
         return errorMessage;
     }

@@ -3,9 +3,6 @@ package ru.practicum.ewmmainservice.category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.practicum.ewmmainservice.category.model.dto.CategoryDto;
-import ru.practicum.ewmmainservice.user.model.dto.UserDto;
-
-import java.util.Collection;
 
 public interface CategoryService {
 

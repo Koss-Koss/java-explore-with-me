@@ -12,7 +12,7 @@ import java.util.Date;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ErrorMessage {
     Date timestamp;
-    int statusCode;
+    int status;
     String error;
     String path;
 }
