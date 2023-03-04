@@ -16,7 +16,6 @@ public interface RequestService {
             long userId, long eventId, EventRequestStatusUpdateDto eventRequestStatusUpdateDto);
 
     List<ParticipationRequestDto> findAllByEventIdAndInitiatorId(long userId, long eventId);
-    
-    List<ParticipationRequestDto> findAllByRequesterId(long userId);
 
+    List<ParticipationRequestDto> findAllByRequesterId(long userId);
 }
