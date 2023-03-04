@@ -142,7 +142,7 @@ public class RequestServiceImpl implements RequestService {
     public List<ParticipationRequestDto> findAllByEventIdAndInitiatorId(long userId, long eventId) {
         User initiator = userRepository.extract(userId);
         Event event = eventRepository.extract(eventId);
-        if (event.getInitiator().getId() != initiator.getId()) {
+        if (!event.getInitiator().getId().equals(initiator.getId())) {
             throw new BadRequestException(USER_GET_NOT_EVENT_INITIATOR_MESSAGE + eventId);
         }
         List<Request> requests = requestRepository.findAllByEventId(event.getId());
