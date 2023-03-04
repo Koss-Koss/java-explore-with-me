@@ -23,7 +23,6 @@ import static ru.practicum.ewmmainservice.pagination.PaginationConstant.*;
 @Slf4j
 public class CategoryController {
     private final CategoryService categoryService;
-    protected static final String CATEGORY_PREFIX = "/{catId}";
 
     @PostMapping(ADMIN_PATH + CATEGORY_PATH)
     @ResponseStatus(HttpStatus.CREATED)

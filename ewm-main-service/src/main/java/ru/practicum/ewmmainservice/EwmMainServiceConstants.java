@@ -7,6 +7,7 @@ public class EwmMainServiceConstants {
     public static final String USER_PATH = "/users";
     public static final String USER_PREFIX = "/{userId}";
     public static final String CATEGORY_PATH = "/categories";
+    public static final String CATEGORY_PREFIX = "/{catId}";
     public static final String EVENT_PATH = "/events";
     public static final String EVENT_PREFIX = "/{eventId}";
     public static final String REQUEST_PATH = "/requests";
