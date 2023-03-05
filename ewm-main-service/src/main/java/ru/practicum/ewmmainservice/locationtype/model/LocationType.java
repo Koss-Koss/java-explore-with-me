@@ -1,4 +1,4 @@
-package ru.practicum.ewmmainservice.location.model;
+package ru.practicum.ewmmainservice.locationtype.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,28 +8,25 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "locations")
+@Table(name = "location_types")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Location {
+public class LocationType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Double lat;
-    Double lon;
-    @Column(name = "event_id")
-    Long eventId;
+    String name;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Location location = (Location) o;
-        return id != null && Objects.equals(id, location.id);
+        LocationType locationType = (LocationType) o;
+        return id != null && Objects.equals(id, locationType.id);
     }
 
     @Override

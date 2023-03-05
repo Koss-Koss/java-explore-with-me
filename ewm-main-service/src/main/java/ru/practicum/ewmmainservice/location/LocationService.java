@@ -8,4 +8,6 @@ public interface LocationService {
     Location create(LocationDto locationDto);
 
     void update(long id, LocationDto locationDto);
+
+    void saveEventId(long id, long eventId);
 }

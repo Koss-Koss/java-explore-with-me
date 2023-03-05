@@ -36,7 +36,7 @@ import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageCon
 @RequiredArgsConstructor
 @Slf4j
 public class EventServiceImpl implements EventService {
-    private final StatsClient statsClient;
+    //private final StatsClient statsClient;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final LocationService locationService;
@@ -52,6 +52,7 @@ public class EventServiceImpl implements EventService {
         Location location = locationService.create(dto.getLocationDto());
         Event createdEvent = eventRepository.save(
                 eventMapper.toEvent(eventMapper.toEventCreateDto(dto), user, category, location));
+        locationService.saveEventId(location.getId(), createdEvent.getId());
         log.info("Добавлено событие с id = {}", createdEvent.getId());
         return eventMapper.toEventFullDto(createdEvent);
     }
@@ -145,7 +146,7 @@ public class EventServiceImpl implements EventService {
         }
         Page<Event> events = eventRepository.findPublishedAllByParamsAndText(
                 text, categories, paid, rangeStart, rangeEnd, onlyAvailable, pageable);
-        statsClient.createHit(makeHitDto(request));
+        //statsClient.createHit(makeHitDto(request));
         Collection<Event> eventCollection = events.getContent();
         Set<Long> ids = eventCollection.stream().map(Event::getId).collect(Collectors.toSet());
         changeViews(ids);
@@ -159,7 +160,7 @@ public class EventServiceImpl implements EventService {
         if (!event.getState().equals(EventState.PUBLISHED)) {
             throw new NotFoundException(EVENT_NOT_AVAILABLE_FOR_VIEWING_MESSAGE + eventId);
         }
-        statsClient.createHit(makeHitDto(request));
+        //statsClient.createHit(makeHitDto(request));
         changeViews(Set.of(eventId));
         return eventMapper.toEventFullDto(event);
     }

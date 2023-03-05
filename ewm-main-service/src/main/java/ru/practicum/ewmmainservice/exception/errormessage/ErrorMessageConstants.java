@@ -44,6 +44,8 @@ public class ErrorMessageConstants {
             "Значение долготы должно быть в интервале [0, 180] градусов";
     public static final String INCORRECT_SORT_PARAM_MESSAGE = "Недопустимый параметр сортировки sort = ";
     public static final String LOCATION_NOT_FOUND_MESSAGE = "Запрос на несуществующую локацию с id = ";
+    public static final String LOCATION_TYPE_ALREADY_EXISTS_MESSAGE = "Уже существует тип локации с name = ";
+    public static final String LOCATION_TYPE_NOT_FOUND_MESSAGE = "Запрос на несуществующий тип локации с id = ";
     public static final String NOT_CANCELED_EVENT_ADMIN_MESSAGE =
             "Событие не может быть отклонено, находясь в статусе " + EventState.PUBLISHED;
     public static final String NOT_CANCELED_EVENT_INITIATOR_MESSAGE =

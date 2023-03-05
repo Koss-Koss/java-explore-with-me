@@ -1,6 +1,9 @@
 package ru.practicum.ewmmainservice.location;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ru.practicum.ewmmainservice.exception.NotFoundException;
 import ru.practicum.ewmmainservice.location.model.Location;
 
@@ -12,4 +15,8 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
         return findById(id).orElseThrow(
                 () -> new NotFoundException(LOCATION_NOT_FOUND_MESSAGE + id));
     }
+
+    @Modifying
+    @Query("update Location l set l.eventId = :eventId WHERE l.id = :id")
+    void saveEventId(@Param("id") long id, @Param("eventId") long eventId);
 }

@@ -10,6 +10,8 @@ public class EwmMainServiceConstants {
     public static final String CATEGORY_PREFIX = "/{catId}";
     public static final String EVENT_PATH = "/events";
     public static final String EVENT_PREFIX = "/{eventId}";
+    public static final String LOCATION_TYPE_PATH = "/locationtypes";
+    public static final String LOCATION_TYPE_PREFIX = "/{typeId}";
     public static final String REQUEST_PATH = "/requests";
     public static final String REQUEST_PREFIX = "/{requestId}";
     public static final String REQUEST_CANCEL_PATH = "/cancel";
