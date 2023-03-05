@@ -3,6 +3,7 @@ package ru.practicum.stats.server.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.stats.dto.HitDto;
 import ru.practicum.stats.dto.StatsDto;
@@ -25,6 +26,7 @@ public class HitController {
     protected static final String STATS_PATH = "/stats";
 
     @PostMapping(value = HIT_PATH)
+    @ResponseStatus(HttpStatus.CREATED)
     public HitDto hit(@RequestBody @Valid HitDto hitDto) {
         log.info("Получен запрос POST к эндпоинту: {}. Данные тела запроса: {}",
                 HIT_PATH, hitDto);

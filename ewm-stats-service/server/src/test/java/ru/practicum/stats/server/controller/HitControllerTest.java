@@ -42,7 +42,7 @@ class HitControllerTest {
     StatsDto statsDto = StatsDto.builder().app(hitDto.getApp()).uri(hitDto.getUri()).hits(1).build();
 
     @Test
-    void hit_whenValidHitDto_thenResponseStatusOkWithHitDtoInBody() throws Exception {
+    void hit_whenValidHitDto_thenResponseStatusCreatedWithHitDtoInBody() throws Exception {
         when(hitService.create(any(HitDto.class)))
                 .thenReturn(hitDto);
 
@@ -51,7 +51,7 @@ class HitControllerTest {
                         .characterEncoding(StandardCharsets.UTF_8)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().json(mapper.writeValueAsString(hitDto)));
         verify(hitService, times(1)).create(any(HitDto.class));
     }
