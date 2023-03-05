@@ -50,7 +50,7 @@ public class UpdateAdminEventDto {
                 "\"title\":\"" + title + "\"," +
                 "\"stateAction\":\"" + state + "\"," +
                 "\"category\":" + categoryId + "," +
-                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":"+ locationDto.getLon() + "}" +
+                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":" + locationDto.getLon() + "}" +
                 '}';
     }
 }

@@ -123,10 +123,10 @@ class EventControllerTest {
     String users = "1";
     String states = "PUBLISHED";
     String categories = "1";
-    String rangeStart= "2022-01-06 13:30:38";
-    String rangeEnd= "2097-01-06 13:30:38";
-    String text= "Test text";
-    String paid= "true";
+    String rangeStart = "2022-01-06 13:30:38";
+    String rangeEnd = "2097-01-06 13:30:38";
+    String text = "Test text";
+    String paid = "true";
     String onlyAvailable = "true";
     int from = 0;
     int size = 10;

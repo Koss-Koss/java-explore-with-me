@@ -58,7 +58,7 @@ public class UpdateUserEventDto {
                 "\"title\":\"" + title + "\"," +
                 "\"stateAction\":\"" + state + "\"," +
                 "\"category\":" + categoryId + "," +
-                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":"+ locationDto.getLon() + "}" +
+                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":" + locationDto.getLon() + "}" +
                 '}';
     }
 }

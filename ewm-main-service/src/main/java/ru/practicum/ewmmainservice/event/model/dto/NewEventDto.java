@@ -56,7 +56,7 @@ public class NewEventDto {
                 "\"requestModeration\":" + requestModeration + "," +
                 "\"title\":\"" + title + "\"," +
                 "\"category\":" + categoryId + "," +
-                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":"+ locationDto.getLon() + "}" +
+                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":" + locationDto.getLon() + "}" +
                 '}';
     }
 }
