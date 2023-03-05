@@ -10,6 +10,7 @@ import ru.practicum.ewmmainservice.location.model.dto.LocationDto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static ru.practicum.ewmmainservice.EwmMainServiceConstants.*;
 import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.*;
@@ -20,7 +21,6 @@ import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageCon
 @Setter
 @EqualsAndHashCode
 @Builder
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NewEventDto {
     @NotNull
@@ -45,4 +45,18 @@ public class NewEventDto {
     @Size(min = EVENT_TITLE_LENGTH_MIN, max = EVENT_TITLE_LENGTH_MAX,
             message = EVENT_TITLE_SIZE_INCORRECT_MESSAGE)
     String title;
+
+    @Override
+    public String toString() {
+        return "{\"annotation\":\"" + annotation + "\"," +
+                "\"description\":\"" + description + "\"," +
+                "\"eventDate\":\"" + eventDate.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)) + "\"," +
+                "\"paid\":" + paid + "," +
+                "\"participantLimit\":" + participantLimit + "," +
+                "\"requestModeration\":" + requestModeration + "," +
+                "\"title\":\"" + title + "\"," +
+                "\"category\":" + categoryId + "," +
+                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":"+ locationDto.getLon() + "}" +
+                '}';
+    }
 }

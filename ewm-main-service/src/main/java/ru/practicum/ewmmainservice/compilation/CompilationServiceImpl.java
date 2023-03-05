@@ -23,6 +23,7 @@ public class CompilationServiceImpl implements CompilationService {
     private final CompilationRepository compilationRepository;
     private final CompilationMapper compilationMapper;
 
+    @Transactional
     @Override
     public CompilationDto create(NewCompilationDto newCompilationDto) {
         try {
@@ -34,6 +35,7 @@ public class CompilationServiceImpl implements CompilationService {
         }
     }
 
+    @Transactional
     @Override
     public CompilationDto update(long compilationId, UpdateCompilationDto compilationDto) {
         Compilation compilation = compilationRepository.extract(compilationId);
@@ -42,8 +44,8 @@ public class CompilationServiceImpl implements CompilationService {
         return compilationMapper.toCompilationDto(compilationRepository.save(updatedCompilation));
     }
 
-    @Override
     @Transactional
+    @Override
     public void delete(long compilationId) {
         try {
             compilationRepository.deleteById(compilationId);

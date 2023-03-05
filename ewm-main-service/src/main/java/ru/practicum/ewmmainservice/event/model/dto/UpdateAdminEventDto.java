@@ -11,6 +11,9 @@ import ru.practicum.ewmmainservice.location.model.dto.LocationDto;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static ru.practicum.ewmmainservice.EwmMainServiceConstants.DATE_TIME_FORMAT;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +21,6 @@ import java.time.LocalDateTime;
 @Setter
 @EqualsAndHashCode
 @Builder
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UpdateAdminEventDto {
     String annotation;
@@ -36,4 +38,19 @@ public class UpdateAdminEventDto {
     @Enumerated(EnumType.STRING)
     EventState state;
     String title;
+
+    @Override
+    public String toString() {
+        return "{\"annotation\":\"" + annotation + "\"," +
+                "\"description\":\"" + description + "\"," +
+                "\"eventDate\":\"" + eventDate.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)) + "\"," +
+                "\"paid\":" + paid + "," +
+                "\"participantLimit\":" + participantLimit + "," +
+                "\"requestModeration\":" + requestModeration + "," +
+                "\"title\":\"" + title + "\"," +
+                "\"stateAction\":\"" + state + "\"," +
+                "\"category\":" + categoryId + "," +
+                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":"+ locationDto.getLon() + "}" +
+                '}';
+    }
 }

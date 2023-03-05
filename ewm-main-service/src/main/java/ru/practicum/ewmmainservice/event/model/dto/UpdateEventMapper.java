@@ -22,7 +22,7 @@ public class UpdateEventMapper {
                     event.getState().equals(EventState.REJECT_EVENT)) {
                 event.setState(EventState.CANCELED);
             } else {
-                throw new ConflictException(NOT_CANCELED_EVENT_INITIATOR_MESSAGE); //ОТРЕДАКТИРОВАТЬ ТЕКСТ ДЛЯ РАЗНЫХ СЛУЧАЕВ???????????
+                throw new ConflictException(NOT_CANCELED_EVENT_INITIATOR_MESSAGE);
             }
         }
         return event;

@@ -97,7 +97,7 @@ class CategoryControllerTest {
 
     @Test
     @DisplayName("Метод updateIsAdmin - Успех")
-    void updateIsAdmin_whenValidCategoryDto_thenResponseStatusOkdWithCategoryDtoInBody() throws Exception {
+    void updateIsAdmin_whenValidCategoryDto_thenResponseStatusOkWithCategoryDtoInBody() throws Exception {
         when(categoryService.update(anyLong(), any(CategoryDto.class)))
                 .thenReturn(categoryDto);
 
@@ -143,7 +143,7 @@ class CategoryControllerTest {
 
     @Test
     @DisplayName("Метод deleteIsAdmin - Успех")
-    void deleteIsAdmin_whenValidCategoryIdAndNoRelatedEvents_thenResponseStatusOk() throws Exception {
+    void deleteIsAdmin_whenValidCategoryIdAndNoRelatedEvents_thenResponseStatusNoContent() throws Exception {
 
         mvc.perform(delete(ADMIN_PATH + CATEGORY_PATH + CATEGORY_PREFIX, categoryId)
                         .characterEncoding(StandardCharsets.UTF_8)
@@ -210,7 +210,7 @@ class CategoryControllerTest {
 
     @Test
     @DisplayName("Метод getByIdIsPublic - Успех")
-    void getByIdIsPublic_whenValidCategoryId_thenResponseStatusOk() throws Exception {
+    void getByIdIsPublic_whenValidCategoryId_thenResponseStatusOkWithCategoryDtoInBody() throws Exception {
         when(categoryService.findById(anyLong()))
                 .thenReturn(categoryDto);
 
