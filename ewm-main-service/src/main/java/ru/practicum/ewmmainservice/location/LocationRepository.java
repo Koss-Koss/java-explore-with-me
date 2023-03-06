@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import ru.practicum.ewmmainservice.exception.NotFoundException;
 import ru.practicum.ewmmainservice.location.model.Location;
 
+import java.util.Collection;
+
 import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageConstants.LOCATION_NOT_FOUND_MESSAGE;
 
 public interface LocationRepository extends JpaRepository<Location, Long> {
@@ -19,4 +21,10 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     @Modifying
     @Query("update Location l set l.eventId = :eventId WHERE l.id = :id")
     void saveEventId(@Param("id") long id, @Param("eventId") long eventId);
+
+    @Query(value = "select l from Location l where distance(l.lat, l.lon, :lat, :lon) <= :radius")
+    Collection<Long> findAllEventIdInRegion(
+            @Param("lat") double lat,
+            @Param("lon") double lon,
+            @Param("radius") double radius);
 }

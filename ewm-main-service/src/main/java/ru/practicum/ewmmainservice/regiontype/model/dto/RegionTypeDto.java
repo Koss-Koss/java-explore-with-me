@@ -1,4 +1,4 @@
-package ru.practicum.ewmmainservice.locationtype.model.dto;
+package ru.practicum.ewmmainservice.regiontype.model.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -11,8 +11,8 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @ToString
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class LocationTypeDto {
+public class RegionTypeDto {
     Long id;
-    @NotEmpty(message = "Не указано имя (name) типа локации")
+    @NotEmpty(message = "Не указано имя (name) типа региона")
     String name;
 }

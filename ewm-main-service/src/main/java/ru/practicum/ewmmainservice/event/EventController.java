@@ -159,4 +159,20 @@ public class EventController {
         log.info("Получен запрос GET к эндпоинту: {}/{}", EVENT_PATH, eventId);
         return eventService.findPublishedById(eventId, request);
     }
+
+    @GetMapping(ADMIN_PATH + REGION_PATH + REGION_PREFIX + EVENT_PATH)
+    public Collection<EventFullDto> getAllInRegionIsAdmin(
+            @PathVariable Long regionId,
+            @PositiveOrZero(message = NEGATIVE_FROM_ERROR)
+            @RequestParam(defaultValue = DEFAULT_PAGINATION_FROM_AS_STRING) int from,
+            @Positive(message = NOT_POSITIVE_SIZE_ERROR)
+            @RequestParam(defaultValue = DEFAULT_PAGINATION_SIZE_AS_STRING) int size) {
+        log.info("Получен запрос GET к эндпоинту: {}{}/{}{} для списка событий с локациями, входящих " +
+                        "в регион с id = {}. Параметры пагинации: from = {}, size = {}",
+                ADMIN_PATH, REGION_PATH, regionId, EVENT_PATH, regionId, from, size);
+        return eventService.findAllInRegion(
+                regionId,
+                PageRequest.of(PaginationUtils.getCalculatedPage(from, size), size, DEFAULT_PAGINATION_SORT)
+        ).getContent();
+    }
 }

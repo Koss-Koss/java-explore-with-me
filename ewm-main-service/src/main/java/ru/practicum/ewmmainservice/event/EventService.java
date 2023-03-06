@@ -39,4 +39,6 @@ public interface EventService {
     void changeConfirmedRequests(long id, long changeSize);
 
     void changeViews(Set<Long> ids);
+
+    Page<EventFullDto> findAllInRegion(long regionId, Pageable pageable);
 }

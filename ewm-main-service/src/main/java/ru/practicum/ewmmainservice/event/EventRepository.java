@@ -11,6 +11,7 @@ import ru.practicum.ewmmainservice.event.model.EventState;
 import ru.practicum.ewmmainservice.exception.NotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
@@ -67,4 +68,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Modifying
     @Query("update Event e set e.views = e.views + 1 WHERE e.id in :ids")
     void changeViews(@Param("ids") Set<Long> ids);
+
+    Page<Event> findAllByIdIn(Collection<Long> ids, Pageable pageable);
 }

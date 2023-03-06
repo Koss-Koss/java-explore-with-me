@@ -17,8 +17,12 @@ import ru.practicum.ewmmainservice.exception.ConflictException;
 import ru.practicum.ewmmainservice.exception.NotFoundException;
 import ru.practicum.ewmmainservice.location.LocationService;
 import ru.practicum.ewmmainservice.location.model.Location;
+import ru.practicum.ewmmainservice.region.RegionRepository;
+import ru.practicum.ewmmainservice.region.model.Region;
+import ru.practicum.ewmmainservice.request.RequestRepository;
 import ru.practicum.ewmmainservice.user.UserRepository;
 import ru.practicum.ewmmainservice.user.model.User;
+import ru.practicum.ewmmainservice.user.model.dto.UserMapper;
 import ru.practicum.stats.client.StatsClient;
 import ru.practicum.stats.dto.HitDto;
 
@@ -36,11 +40,13 @@ import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageCon
 @RequiredArgsConstructor
 @Slf4j
 public class EventServiceImpl implements EventService {
+    private final RequestRepository requestRepository;
     //private final StatsClient statsClient;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final LocationService locationService;
     private final EventRepository eventRepository;
+    private final RegionRepository regionRepository;
     private final EventMapper eventMapper;
 
     @Transactional
@@ -186,6 +192,20 @@ public class EventServiceImpl implements EventService {
                 request.getRemoteAddr(),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT))
         );
+    }
+
+    @Override
+    public Page<EventFullDto> findAllInRegion(long regionId, Pageable pageable) {
+        Region region = regionRepository.extract(regionId);
+        Collection<Long> ids =
+                locationService.findAllEventIdInRegion(region.getLat(), region.getLon(), region.getRadius());
+        Page<Event> result;
+        if (ids == null || ids.isEmpty()) {
+            result = Page.empty();
+        } else {
+            result = eventRepository.findAllByIdIn(ids, pageable);
+        }
+        return result.map(eventMapper::toEventFullDto);
     }
 
 }

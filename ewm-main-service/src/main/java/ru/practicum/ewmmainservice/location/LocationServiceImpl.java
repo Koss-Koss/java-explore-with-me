@@ -10,6 +10,8 @@ import ru.practicum.ewmmainservice.location.model.dto.LocationDto;
 import ru.practicum.ewmmainservice.location.model.dto.LocationMapper;
 import ru.practicum.ewmmainservice.location.model.dto.UpdateLocationMapper;
 
+import java.util.Collection;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -41,5 +43,10 @@ public class LocationServiceImpl implements LocationService {
         eventRepository.extract(eventId);
         log.info("Для локации с id = {} сохранён eventId = {}", id, eventId);
         locationRepository.saveEventId(id, eventId);
+    }
+
+    @Override
+    public Collection<Long> findAllEventIdInRegion(double lat, double lon, double radius) {
+        return locationRepository.findAllEventIdInRegion(lat, lon, radius);
     }
 }

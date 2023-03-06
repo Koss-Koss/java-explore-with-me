@@ -1,4 +1,4 @@
-package ru.practicum.ewmmainservice.locationtype.model;
+package ru.practicum.ewmmainservice.regiontype.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,14 +8,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "location_types")
+@Table(name = "region_types")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LocationType {
+public class RegionType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -25,8 +25,8 @@ public class LocationType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        LocationType locationType = (LocationType) o;
-        return id != null && Objects.equals(id, locationType.id);
+        RegionType regionType = (RegionType) o;
+        return id != null && Objects.equals(id, regionType.id);
     }
 
     @Override

@@ -10,8 +10,10 @@ public class EwmMainServiceConstants {
     public static final String CATEGORY_PREFIX = "/{catId}";
     public static final String EVENT_PATH = "/events";
     public static final String EVENT_PREFIX = "/{eventId}";
-    public static final String LOCATION_TYPE_PATH = "/locationtypes";
-    public static final String LOCATION_TYPE_PREFIX = "/{typeId}";
+    public static final String REGION_PATH = "/regions";
+    public static final String REGION_PREFIX = "/{regionId}";
+    public static final String REGION_TYPE_PATH = "/regiontypes";
+    public static final String REGION_TYPE_PREFIX = "/{typeId}";
     public static final String REQUEST_PATH = "/requests";
     public static final String REQUEST_PREFIX = "/{requestId}";
     public static final String REQUEST_CANCEL_PATH = "/cancel";
@@ -24,6 +26,7 @@ public class EwmMainServiceConstants {
     public static final int EVENT_DESCRIPTION_LENGTH_MAX = 7000;
     public static final int EVENT_TITLE_LENGTH_MIN = 3;
     public static final int EVENT_TITLE_LENGTH_MAX = 120;
+    public static final int REGION_DESCRIPTION_LENGTH_MAX = 7000;
     public static final int LIMIT_DATE_EVENT_CHANGE_IN_FUTURE_IN_HOURS = 1;
     public static final int LIMIT_DATE_EVENT_CREATION_IN_FUTURE_IN_HOURS = 2;
     public static final String SORT_PARAM_EVENT_DATE_FOR_EVENT_SEARCH = "EVENT_DATE";

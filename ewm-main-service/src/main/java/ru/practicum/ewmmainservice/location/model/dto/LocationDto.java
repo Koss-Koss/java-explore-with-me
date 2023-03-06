@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
-@Builder(toBuilder = true)
+@Builder
 @ToString
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class LocationDto {
