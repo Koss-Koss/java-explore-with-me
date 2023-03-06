@@ -22,7 +22,7 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     @Query("update Location l set l.eventId = :eventId WHERE l.id = :id")
     void saveEventId(@Param("id") long id, @Param("eventId") long eventId);
 
-    @Query(value = "select l from Location l where distance(l.lat, l.lon, :lat, :lon) <= :radius")
+    @Query(value = "select l.eventId from Location l where distance(l.lat, l.lon, :lat, :lon) <= :radius")
     Collection<Long> findAllEventIdInRegion(
             @Param("lat") double lat,
             @Param("lon") double lon,

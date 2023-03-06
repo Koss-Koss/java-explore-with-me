@@ -19,10 +19,8 @@ import ru.practicum.ewmmainservice.location.LocationService;
 import ru.practicum.ewmmainservice.location.model.Location;
 import ru.practicum.ewmmainservice.region.RegionRepository;
 import ru.practicum.ewmmainservice.region.model.Region;
-import ru.practicum.ewmmainservice.request.RequestRepository;
 import ru.practicum.ewmmainservice.user.UserRepository;
 import ru.practicum.ewmmainservice.user.model.User;
-import ru.practicum.ewmmainservice.user.model.dto.UserMapper;
 import ru.practicum.stats.client.StatsClient;
 import ru.practicum.stats.dto.HitDto;
 
@@ -40,8 +38,7 @@ import static ru.practicum.ewmmainservice.exception.errormessage.ErrorMessageCon
 @RequiredArgsConstructor
 @Slf4j
 public class EventServiceImpl implements EventService {
-    private final RequestRepository requestRepository;
-    //private final StatsClient statsClient;
+    private final StatsClient statsClient;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final LocationService locationService;
@@ -152,7 +149,7 @@ public class EventServiceImpl implements EventService {
         }
         Page<Event> events = eventRepository.findPublishedAllByParamsAndText(
                 text, categories, paid, rangeStart, rangeEnd, onlyAvailable, pageable);
-        //statsClient.createHit(makeHitDto(request));
+        statsClient.createHit(makeHitDto(request));
         Collection<Event> eventCollection = events.getContent();
         Set<Long> ids = eventCollection.stream().map(Event::getId).collect(Collectors.toSet());
         changeViews(ids);
@@ -166,7 +163,7 @@ public class EventServiceImpl implements EventService {
         if (!event.getState().equals(EventState.PUBLISHED)) {
             throw new NotFoundException(EVENT_NOT_AVAILABLE_FOR_VIEWING_MESSAGE + eventId);
         }
-        //statsClient.createHit(makeHitDto(request));
+        statsClient.createHit(makeHitDto(request));
         changeViews(Set.of(eventId));
         return eventMapper.toEventFullDto(event);
     }
