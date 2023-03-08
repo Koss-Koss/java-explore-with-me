@@ -51,14 +51,17 @@ public class UpdateUserEventDto {
     public String toString() {
         return "{\"annotation\":\"" + annotation + "\"," +
                 "\"description\":\"" + description + "\"," +
-                "\"eventDate\":\"" + eventDate.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)) + "\"," +
+                (eventDate != null ? "\"eventDate\":\"" +
+                        eventDate.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)) +
+                        "\"," : "\"eventDate\":null") +
                 "\"paid\":" + paid + "," +
                 "\"participantLimit\":" + participantLimit + "," +
                 "\"requestModeration\":" + requestModeration + "," +
                 "\"title\":\"" + title + "\"," +
                 "\"stateAction\":\"" + state + "\"," +
                 "\"category\":" + categoryId + "," +
-                "\"location\":{\"lat\":" + locationDto.getLat() + ",\"lon\":" + locationDto.getLon() + "}" +
+                "\"location\":{\"lat\":" + (locationDto != null ? locationDto.getLat() : null) +
+                ",\"lon\":"+ (locationDto != null ? locationDto.getLon() : null) + "}" +
                 '}';
     }
 }

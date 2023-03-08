@@ -13,7 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder(toBuilder = true)
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Category {
     @Id

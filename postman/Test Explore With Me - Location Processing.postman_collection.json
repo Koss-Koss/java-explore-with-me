@@ -1,0 +1,4065 @@
+{
+	"info": {
+		"_postman_id": "e01ea35d-32b8-4303-977d-9ba477275caf",
+		"name": "Test Explore With Me - Location Processing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19368420"
+	},
+	"item": [
+		{
+			"name": "Validation",
+			"item": [
+				{
+					"name": "Unrequired query params",
+					"item": [
+						{
+							"name": "Поиск событий внутри региона без нескольких Query params",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const main = async () => {\r",
+											"    const api = new API(pm);\r",
+											"    const rnd = new RandomUtils();\r",
+											"\r",
+											"    try {\r",
+											"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+											"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+											"        pm.collectionVariables.set(\"rid\", region.id)\r",
+											"    } catch(err) {\r",
+											"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+											"    }\r",
+											"};\r",
+											"\r",
+											"const interval = setInterval(() => {}, 1000);\r",
+											"\r",
+											"setTimeout(async () => \r",
+											"    {\r",
+											"        try {\r",
+											"            // выполняем наш скрипт\r",
+											"            await main();\r",
+											"        } catch (e) {\r",
+											"            console.error(e);\r",
+											"        } finally {\r",
+											"            clearInterval(interval);\r",
+											"        }\r",
+											"    },  \r",
+											"    100 \r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+											"    pm.response.to.be.ok;    \r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/regions/:regionId/events",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"regions",
+										":regionId",
+										"events"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "0",
+											"description": "количество событий, которые нужно пропустить для формирования текущего набора",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "1000",
+											"description": "количество событий в наборе",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "regionId",
+											"value": "{{rid}}"
+										}
+									]
+								},
+								"description": "Эндпоинт возвращает полную информацию обо всех событиях подходящих под переданные условия"
+							},
+							"response": []
+						},
+						{
+							"name": "Получение типов регионов без нескольких Query params",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+											"    pm.response.to.be.ok;    \r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/regiontypes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"regiontypes"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "0",
+											"description": "количество категорий, которые нужно пропустить для формирования текущего набора",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10000",
+											"description": "количество категорий в наборе",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Поиск регионов без нескольких Query params",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+											"    pm.response.to.be.ok;    \r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/admin/regions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"regions"
+									],
+									"query": [
+										{
+											"key": "regionTypeId",
+											"value": "0",
+											"description": "id типа региона для выборки соотвествующих регионов",
+											"disabled": true
+										},
+										{
+											"key": "from",
+											"value": "0",
+											"description": "количество регионов, которые нужно пропустить для формирования текущего набора",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "1000",
+											"description": "количество регионов в наборе",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Эндпоинт возвращает полную информацию обо всех событиях подходящих под переданные условия"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Required params in body",
+					"item": [
+						{
+							"name": "Добавление типа региона с некорректным body",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const main = async () => {\r",
+											"    const api = new API(pm);\r",
+											"    const rnd = new RandomUtils();\r",
+											"\r",
+											"    let regionType;\r",
+											"    try {\r",
+											"        regionType = {};\r",
+											"    } catch(err) {\r",
+											"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+											"    }\r",
+											"\r",
+											"    pm.request.body.update({\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(regionType),\r",
+											"        options: { raw: { language: 'json' } }\r",
+											"    });\r",
+											"};\r",
+											"\r",
+											"const interval = setInterval(() => {}, 1000);\r",
+											"\r",
+											"setTimeout(async () => \r",
+											"    {\r",
+											"        try {\r",
+											"            await main();\r",
+											"        } catch (e) {\r",
+											"            console.error(e);\r",
+											"        } finally {\r",
+											"            clearInterval(interval);\r",
+											"        }\r",
+											"    },  \r",
+											"    100 \r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+											"    pm.response.to.be.badRequest;    \r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"const target = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Ошибка должна содержать поле: status\", function () {\r",
+											"pm.expect(target).to.have.property('status');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/regiontypes",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"regiontypes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Изменение типа региона с некорректным body",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const main = async () => {\r",
+											"    const api = new API(pm);\r",
+											"    const rnd = new RandomUtils();\r",
+											"    let regionType\r",
+											"    try {\r",
+											"        regionType = await api.addRegionType(rnd.getRegionType());\r",
+											"        pm.collectionVariables.set(\"typeid\", regionType.id)\r",
+											"    } catch(err) {\r",
+											"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+											"    }\r",
+											"    pm.request.body.update({\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({}),\r",
+											"        options: { raw: { language: 'json' } }\r",
+											"    });\r",
+											"};\r",
+											"\r",
+											"const interval = setInterval(() => {}, 1000);\r",
+											"\r",
+											"setTimeout(async () => \r",
+											"    {\r",
+											"        try {\r",
+											"            await main();\r",
+											"        } catch (e) {\r",
+											"            console.error(e);\r",
+											"        } finally {\r",
+											"            clearInterval(interval);\r",
+											"        }\r",
+											"    },  \r",
+											"    100 \r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+											"    pm.response.to.be.badRequest;    \r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"const target = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Ошибка должна содержать поле: status\", function () {\r",
+											"pm.expect(target).to.have.property('status');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"regiontypes",
+										":typeId"
+									],
+									"variable": [
+										{
+											"key": "typeId",
+											"value": "{{typeid}}"
+										}
+									]
+								},
+								"description": "Обратите внимание: имя категории должно быть уникальным"
+							},
+							"response": []
+						},
+						{
+							"name": "Добавление региона с некорректным body",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const main = async () => {\r",
+											"    const api = new API(pm);\r",
+											"    const rnd = new RandomUtils();\r",
+											"\r",
+											"    let region;\r",
+											"    try {\r",
+											"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+											"        region = rnd.getRegion(regionType.id);\r",
+											"        delete region[\"name\"];\r",
+											"        delete region[\"lat\"];\r",
+											"    } catch(err) {\r",
+											"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+											"    }\r",
+											"    console.log(region);\r",
+											"    pm.request.body.update({\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify(region),\r",
+											"        options: { raw: { language: 'json' } }\r",
+											"    });\r",
+											"};\r",
+											"\r",
+											"const interval = setInterval(() => {}, 1000);\r",
+											"\r",
+											"setTimeout(async () => \r",
+											"    {\r",
+											"        try {\r",
+											"            await main();\r",
+											"        } catch (e) {\r",
+											"            console.error(e);\r",
+											"        } finally {\r",
+											"            clearInterval(interval);\r",
+											"        }\r",
+											"    },  \r",
+											"    100 \r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+											"    pm.response.to.be.badRequest;    \r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"const target = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Ошибка должна содержать поле: status\", function () {\r",
+											"pm.expect(target).to.have.property('status');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{request_body}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/regions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"regions"
+									]
+								},
+								"description": "Обратите внимание: дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Поиск событий внутри региона с нулевым результатом",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const user = await api.addUser(rnd.getUser());\r",
+									"        const category = await api.addCategory(rnd.getCategory());\r",
+									"        let event = rnd.getEvent(category.id);\r",
+									"        let event_create = await api.addEvent(user.id, event);\r",
+									"\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = rnd.getRegion(regionType.id);\r",
+									"        region.lat = event_create.location.lat + 1;\r",
+									"        region.lon = event_create.location.lon + 1;\r",
+									"        region.radius = 1;\r",
+									"        region_create = await api.addRegion(region);\r",
+									"        pm.collectionVariables.set(\"rid\", region_create.id)\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            // выполняем наш скрипт\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"var target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Список событий должен быть пустой\", function () {\r",
+									"    pm.expect(target.length).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId/events?from=0&size=1000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId",
+								"events"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0",
+									"description": "количество событий, которые нужно пропустить для формирования текущего набора"
+								},
+								{
+									"key": "size",
+									"value": "1000",
+									"description": "количество событий в наборе"
+								}
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						},
+						"description": "Эндпоинт возвращает полную информацию обо всех событиях подходящих под переданные условия"
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск событий внутри региона - успех",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const user = await api.addUser(rnd.getUser());\r",
+									"        const category = await api.addCategory(rnd.getCategory());\r",
+									"        let event = rnd.getEvent(category.id);\r",
+									"        let event_create = await api.addEvent(user.id, event);\r",
+									"        let event2 = rnd.getEvent(category.id);\r",
+									"        let event_create2 = await api.addEvent(user.id, event2);\r",
+									"\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = rnd.getRegion(regionType.id);\r",
+									"        region.lat = event_create2.location.lat;\r",
+									"        region.lon = event_create2.location.lon;\r",
+									"        region.radius = 1;\r",
+									"        region_create = await api.addRegion(region);\r",
+									"        pm.collectionVariables.set(\"rid\", region_create.id)\r",
+									"        pm.collectionVariables.set('response', event_create2);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            // выполняем наш скрипт\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"var target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Список событий должен быть ожидаемой длины\", function () {\r",
+									"    pm.expect(target.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"const source = pm.collectionVariables.get('response');\r",
+									"const target2 = pm.response.json()[0];\r",
+									"\r",
+									"pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, views, confirmedRequests, description, participantLimit, state, createdOn, publishedOn, location, requestModeration\", function () {\r",
+									"pm.expect(target2).to.have.property('id');\r",
+									"pm.expect(target2).to.have.property('title');\r",
+									"pm.expect(target2).to.have.property('annotation');\r",
+									"pm.expect(target2).to.have.property('category');\r",
+									"pm.expect(target2).to.have.property('paid');\r",
+									"pm.expect(target2).to.have.property('eventDate');\r",
+									"pm.expect(target2).to.have.property('initiator');\r",
+									"pm.expect(target2).to.have.property('views');\r",
+									"pm.expect(target2).to.have.property('confirmedRequests');\r",
+									"pm.expect(target2).to.have.property('description');\r",
+									"pm.expect(target2).to.have.property('participantLimit');\r",
+									"pm.expect(target2).to.have.property('state');\r",
+									"pm.expect(target2).to.have.property('createdOn');\r",
+									"pm.expect(target2).to.have.property('publishedOn');\r",
+									"pm.expect(target2).to.have.property('location');\r",
+									"pm.expect(target2).to.have.property('requestModeration');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(source.annotation).equal(target2.annotation, 'Аннотация события должна соответствовать искомому событию');\r",
+									"    pm.expect(source.category.id).equal(target2.category.id, 'Идентификатор категории должен соответствовать искомой категории');\r",
+									"    pm.expect(source.paid.toString()).equal(target2.paid.toString(), 'Стоимость посещения события должна соответствовать искомому событию');\r",
+									"    pm.expect(source.eventDate).equal(target2.eventDate, 'Дата проведения события должна соответствовать дате искомого события');\r",
+									"    pm.expect(source.description).equal(target2.description, 'Описание события должно соответствовать искомому событию');\r",
+									"    pm.expect(source.title).equal(target2.title, 'Название события должно соответствовать искомому событию');\r",
+									"    pm.expect(source.participantLimit.toString()).equal(target2.participantLimit.toString(), 'Число участников события должно соответствовать искомому событию');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId/events?from=0&size=1000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId",
+								"events"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0",
+									"description": "количество событий, которые нужно пропустить для формирования текущего набора"
+								},
+								{
+									"key": "size",
+									"value": "1000",
+									"description": "количество событий в наборе"
+								}
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						},
+						"description": "Эндпоинт возвращает полную информацию обо всех событиях подходящих под переданные условия"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RegionType",
+			"item": [
+				{
+					"name": "Добавление нового типа региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    let category;\r",
+									"    try {\r",
+									"        category = rnd.getCategory();\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(category),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Категория должна содержать поля: id, name\", function () {\r",
+									"pm.expect(target).to.have.property('id');\r",
+									"pm.expect(target).to.have.property('name');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(target.id).to.not.be.null;\r",
+									"    pm.expect(source.name).equal(target.name, 'Название категории должно совпадать с отправленным');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes"
+							]
+						},
+						"description": "Обратите внимание: имя категории должно быть уникальным"
+					},
+					"response": []
+				},
+				{
+					"name": "Получение типов регионов",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        pm.collectionVariables.set(\"response\", regionType)\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = pm.collectionVariables.get('response');\r",
+									"const target = pm.response.json();\r",
+									"let founded;\r",
+									"target.forEach(function(element){if (element.id == source.id) founded = element});\r",
+									"\r",
+									"pm.test(\"Тип региона должен содержать поля: id, name\", function () {\r",
+									"pm.expect(target[0]).to.have.property('id');\r",
+									"pm.expect(target[0]).to.have.property('name');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(source.id).equal(founded.id, 'Идентификатор типа региона должен соответствовать идентификатору типа региона, добавленного ранее');\r",
+									"    pm.expect(source.name).equal(founded.name, 'Название типа региона должно соответствовать названию типа региона, добавленного ранее');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes?from=0&size=1000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0",
+									"description": "количество типов региона, которые нужно пропустить для формирования текущего набора"
+								},
+								{
+									"key": "size",
+									"value": "1000",
+									"description": "количество типов региона в наборе"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение информации о типе региона по его идентификатору",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        pm.collectionVariables.set(\"response\", regionType)\r",
+									"        pm.collectionVariables.set(\"typeId\", regionType.id)\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = pm.collectionVariables.get('response');\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Тип региона должен содержать поля: id, name\", function () {\r",
+									"pm.expect(target).to.have.property('id');\r",
+									"pm.expect(target).to.have.property('name');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(source.id).equal(target.id, 'Идентификатор типа региона должен соответствовать идентификатору в запросе');\r",
+									"    pm.expect(source.name).equal(target.name, 'Название типа региона должно соответствовать названию типа региона с указанным идентификатором');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление типа региона",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"source = pm.collectionVariables.get('response');\r",
+									"typeId = pm.collectionVariables.get('typeid');\r",
+									"\r",
+									"pm.test(\"Тип региона должен быть найден до удаления\", function () {\r",
+									"    pm.expect(source.id).equal(typeId, 'Идентификтор типа региона должен совпадать с удаляемым');\r",
+									"});\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"            url: pm.collectionVariables.get(\"baseUrl\") + \"/admin/regiontypes/\" + typeId,\r",
+									"            method: 'GET',\r",
+									"        }, (error, response) => {\r",
+									"            pm.test(\"Тип региона не должен быть найден после удаления\", function () {\r",
+									"                pm.expect(response.code).to.eql(404);\r",
+									"            });\r",
+									"        });"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        const foundedRegionType = await api.findRegionType(regionType.id);\r",
+									"        pm.collectionVariables.set(\"typeid\", regionType.id);\r",
+									"        pm.collectionVariables.set(\"response\", foundedRegionType)\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение типа региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let regionType\r",
+									"    try {\r",
+									"        regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"typeid\", Number(regionType.id))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            name : rnd.getRegionType().name\r",
+									"        }),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Тип региона должен содержать поля: id, name\", function () {\r",
+									"pm.expect(target).to.have.property('id');\r",
+									"pm.expect(target).to.have.property('name');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(target.id).to.not.be.null;\r",
+									"    pm.expect(source.name).equal(target.name, 'Название типа региона должно совпадать с отправленным');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "409 Conflict",
+			"item": [
+				{
+					"name": "Попытка изменения имени типа региона на уже существующее",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let regionType1, regionType2\r",
+									"    try {\r",
+									"        regionType1 = await api.addRegionType(rnd.getRegionType());\r",
+									"        regionType2 = await api.addRegionType(rnd.getRegionType());\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"typeid\", regionType2.id)\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            name : regionType1.name\r",
+									"        }),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeid}}"
+								}
+							]
+						},
+						"description": "Обратите внимание: имя категории должно быть уникальным"
+					},
+					"response": []
+				},
+				{
+					"name": "Попытка изменения имени региона на уже существующее",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region, region2\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        const regionType2 = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        region2 = await api.addRegion(rnd.getRegion(regionType2.id));\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", region2.id)\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            name : region.name\r",
+									"        }),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						},
+						"description": "Обратите внимание: имя категории должно быть уникальным"
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление нового типа региона с занятым именем",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    let regionType;\r",
+									"    try {\r",
+									"        regionType = rnd.getRegionType();\r",
+									"        await api.addRegionType(regionType);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(regionType),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes"
+							]
+						},
+						"description": "Обратите внимание: имя категории должно быть уникальным"
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление нового региона с занятым именем",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    let region;\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        region2 = rnd.getRegion(regionType.id);\r",
+									"        \r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    region2[\"name\"] = region[\"name\"];\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region2),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions"
+							]
+						},
+						"description": "Обратите внимание: имя категории должно быть уникальным"
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление нового региона с некорректной широтой",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    let region;\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = rnd.getRegion(regionType.id);\r",
+									"        \r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    region[\"lat\"] = 91;\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions"
+							]
+						},
+						"description": "Обратите внимание: имя категории должно быть уникальным"
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление нового региона с некорректной долготой",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    let region;\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = rnd.getRegion(regionType.id);\r",
+									"        \r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    region[\"lon\"] = -1;\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions"
+							]
+						},
+						"description": "Обратите внимание: имя категории должно быть уникальным"
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление нового региона с некорректным радиусом",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    let region;\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = rnd.getRegion(regionType.id);\r",
+									"        \r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    region[\"radius\"] = 20001;\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions"
+							]
+						},
+						"description": "Обратите внимание: имя категории должно быть уникальным"
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление типа региона с привязанными регионами",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        const region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        pm.collectionVariables.set('typeid', regionType.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeid}}"
+								}
+							]
+						},
+						"description": "Обратите внимание: с категорий не должно быть связано ни одного события."
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение имени типа региона на уже занятое",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let regionType1, regionType2\r",
+									"    try {\r",
+									"        regionType1 = await api.addRegionType(rnd.getRegionType());\r",
+									"        regionType2 = await api.addRegionType(rnd.getRegionType());\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"typeid\", Number(regionType1.id))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            name : regionType2.name\r",
+									"        }),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение имени региона на уже занятое",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region, region2\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        const regionType2 = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        region2 = await api.addRegion(rnd.getRegion(regionType2.id));\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", region.id)\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            name : region2.name\r",
+									"        }),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение широты региона на некорректную",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", region.id)\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            lat : -91\r",
+									"        }),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение долготы региона на некорректную",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", region.id)\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            lon : 181\r",
+									"        }),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение радиуса региона на некорректный",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", region.id)\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            radius : -1\r",
+									"        }),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Region",
+			"item": [
+				{
+					"name": "Добавление нового региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    let region;\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = rnd.getRegion(regionType.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(201);  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Регион содержать поля: id, name, description, region_type, lat, lon, radius\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('name');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('region_type');\r",
+									"    pm.expect(target).to.have.property('lat');\r",
+									"    pm.expect(target).to.have.property('lon');\r",
+									"    pm.expect(target).to.have.property('radius');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(target.id).to.not.be.null;\r",
+									"    pm.expect(target.name).equal(source.name, 'Название name региона должно соответствовать названию региона в запросе');\r",
+									"    pm.expect(target.description).equal(source.description, 'Описание региона должно соответствовать описанию региона в запросе');\r",
+									"    pm.expect(target.annotation).equal(source.annotation, 'Аннотация события должна соответствовать аннотации события в запросе');\r",
+									"    pm.expect(target.lat.toString()).equal(source.lat.toString(), 'Широта центра региона должна соответствовать широте центра региона в запросе');\r",
+									"    pm.expect(target.lon.toString()).equal(source.lon.toString(), 'Долгота центра региона должна соответствовать долготе центра региона в запросе');\r",
+									"    pm.expect(target.region_type.id).equal(source.region_type, 'Тип региона должен соответствовать типу региона в запросе');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions"
+							]
+						},
+						"description": "Обратите внимание: дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента"
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование данных региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        let region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        let region2 = rnd.getRegion(regionType.id)\r",
+									"        pm.collectionVariables.set('response', region2);\r",
+									"        pm.collectionVariables.set(\"rid\", region.id)\r",
+									"        pm.request.body.update({\r",
+									"            mode: 'raw',\r",
+									"            raw: region2,\r",
+									"            options: { raw: { language: 'json' } }\r",
+									"        });\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            // выполняем наш скрипт\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = pm.collectionVariables.get('response');\r",
+									"const target = pm.response.json();\r",
+									"console.log(source)\r",
+									"console.log(target)\r",
+									"pm.test(\"Регион содержать поля: id, name, description, region_type, lat, lon, radius\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('name');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('region_type');\r",
+									"    pm.expect(target).to.have.property('lat');\r",
+									"    pm.expect(target).to.have.property('lon');\r",
+									"    pm.expect(target).to.have.property('radius');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(target.id).to.not.be.null;\r",
+									"    pm.expect(target.name).equal(source.name, 'Название name региона должно соответствовать названию региона в запросе');\r",
+									"    pm.expect(target.description).equal(source.description, 'Описание региона должно соответствовать описанию региона в запросе');\r",
+									"    pm.expect(target.annotation).equal(source.annotation, 'Аннотация события должна соответствовать аннотации события в запросе');\r",
+									"    pm.expect(target.lat.toString()).equal(source.lat.toString(), 'Широта центра региона должна соответствовать широте центра региона в запросе');\r",
+									"    pm.expect(target.lon.toString()).equal(source.lon.toString(), 'Долгота центра региона должна соответствовать долготе центра региона в запросе');\r",
+									"    pm.expect(target.region_type.id).equal(source.region_type, 'Тип региона должен соответствовать типу региона в запросе');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						},
+						"description": "Обратите внимание:\n - дата начала события должна быть не ранее чем за час от даты публикации.\n- событие должно быть в состоянии ожидания публикации"
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        let region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        const findedRegion = await api.findRegion(region.id);\r",
+									"        pm.collectionVariables.set(\"rid\", region.id)\r",
+									"        pm.collectionVariables.set(\"response\", findedRegion)\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"source = pm.collectionVariables.get('response');\r",
+									"regionId = pm.collectionVariables.get('rid');\r",
+									"\r",
+									"pm.test(\"Регион должен быть найден до удаления\", function () {\r",
+									"    pm.expect(source.id).equal(regionId, 'Идентификтор региона должен совпадать с удаляемым');\r",
+									"});\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"            url: pm.collectionVariables.get(\"baseUrl\") + \"/admin/regions/\" + regionId,\r",
+									"            method: 'GET',\r",
+									"        }, (error, response) => {\r",
+									"            pm.test(\"Регион не должен быть найден после удаления\", function () {\r",
+									"                pm.expect(response.code).to.eql(404);\r",
+									"            });\r",
+									"        });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						},
+						"description": "Обратите внимание: с категорий не должно быть связано ни одного события."
+					},
+					"response": []
+				},
+				{
+					"name": "Получение информации о регионе",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        const region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        pm.collectionVariables.set(\"rid\", region.id)\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const sourceId = pm.collectionVariables.get('rid');\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Регион содержать поля: id, name, description, region_type, lat, lon, radius\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('name');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('region_type');\r",
+									"    pm.expect(target).to.have.property('lat');\r",
+									"    pm.expect(target).to.have.property('lon');\r",
+									"    pm.expect(target).to.have.property('radius');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(target.id).to.not.be.null;\r",
+									"    pm.expect(target.id).equal(sourceId, 'id региона должен соответствовать id региона в запросе');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение всех регионов",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        const regionType2 = await api.addRegionType(rnd.getRegionType());\r",
+									"        let region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        let region2 = await api.addRegion(rnd.getRegion(regionType2.id));\r",
+									"        const regions = [region, region2];\r",
+									"        pm.collectionVariables.set('response', regions);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            // выполняем наш скрипт\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = pm.collectionVariables.get('response');\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Регион содержать поля: id, name, description, region_type, lat, lon, radius\", function () {\r",
+									"    pm.expect(target[0]).to.have.property('id');\r",
+									"    pm.expect(target[0]).to.have.property('name');\r",
+									"    pm.expect(target[0]).to.have.property('description');\r",
+									"    pm.expect(target[0]).to.have.property('region_type');\r",
+									"    pm.expect(target[0]).to.have.property('lat');\r",
+									"    pm.expect(target[0]).to.have.property('lon');\r",
+									"    pm.expect(target[0]).to.have.property('radius');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Регионы и их количество в ответе должны соответствовать ожидаемым\", function () {\r",
+									"    pm.expect(target.length).to.be.above(1);\r",
+									"    pm.expect(target[target.length - 2].id).to.not.be.null;\r",
+									"    pm.expect(target[target.length - 1].id).to.not.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(source[1].id).equal(target[target.length - 1].id, 'id региона, добавленного последним, должен соответствовать id региона, последнего в списке регионов в ответе');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions?from=0&size=1000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0",
+									"description": "количество регионов, которые нужно пропустить для формирования текущего набора"
+								},
+								{
+									"key": "size",
+									"value": "1000",
+									"description": "количество регионов в наборе"
+								}
+							]
+						},
+						"description": "Обратите внимание: \n- это публичный эндпоинт, соответственно в выдаче должны быть только опубликованные события\n- текстовый поиск (по аннотации и подробному описанию) должен быть без учета регистра букв\n- если в запросе не указан диапазон дат [rangeStart-rangeEnd], то нужно выгружать события, которые произойдут позже текущей даты и времени\n- информация о каждом событии должна включать в себя количество просмотров и количество уже одобренных заявок на участие\n- информацию о том, что по этому эндпоинту был осуществлен и обработан запрос, нужно сохранить в сервисе статистики"
+					},
+					"response": []
+				},
+				{
+					"name": "Получение регионов с возможностью фильтрации по типу региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        let region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        pm.request.removeQueryParams(['regionTypeId']);\r",
+									"        pm.request.addQueryParams([`regionTypeId=` + regionType.id]);\r",
+									"        pm.collectionVariables.set('response', region);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            // выполняем наш скрипт\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = pm.collectionVariables.get('response');\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Регион содержать поля: id, name, description, region_type, lat, lon, radius\", function () {\r",
+									"    pm.expect(target[0]).to.have.property('id');\r",
+									"    pm.expect(target[0]).to.have.property('name');\r",
+									"    pm.expect(target[0]).to.have.property('description');\r",
+									"    pm.expect(target[0]).to.have.property('region_type');\r",
+									"    pm.expect(target[0]).to.have.property('lat');\r",
+									"    pm.expect(target[0]).to.have.property('lon');\r",
+									"    pm.expect(target[0]).to.have.property('radius');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Количество регионов в ответе должно соответствовать ожидаемому\", function () {\r",
+									"    pm.expect(target.length).is.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+									"    pm.expect(target[0].id).to.not.be.null;\r",
+									"    pm.expect(target[0].id).equal(source.id, 'id региона должен соответствовать id региона в запросе');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions?regionTypeId=0&from=0&size=1000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions"
+							],
+							"query": [
+								{
+									"key": "regionTypeId",
+									"value": "0",
+									"description": "id типа региона для выборки соотвествующих регионов"
+								},
+								{
+									"key": "from",
+									"value": "0",
+									"description": "количество регионов, которые нужно пропустить для формирования текущего набора"
+								},
+								{
+									"key": "size",
+									"value": "1000",
+									"description": "количество регионов в наборе"
+								}
+							]
+						},
+						"description": "Обратите внимание: \n- это публичный эндпоинт, соответственно в выдаче должны быть только опубликованные события\n- текстовый поиск (по аннотации и подробному описанию) должен быть без учета регистра букв\n- если в запросе не указан диапазон дат [rangeStart-rangeEnd], то нужно выгружать события, которые произойдут позже текущей даты и времени\n- информация о каждом событии должна включать в себя количество просмотров и количество уже одобренных заявок на участие\n- информацию о том, что по этому эндпоинту был осуществлен и обработан запрос, нужно сохранить в сервисе статистики"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "404 NotFound",
+			"item": [
+				{
+					"name": "Попытка изменить несуществующий тип региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let regionType\r",
+									"    try {\r",
+									"        regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"typeid\", Number(regionType.id + 1))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(regionType),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Попытка удалить несуществующий тип региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let regionType\r",
+									"    try {\r",
+									"        regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"typeid\", Number(regionType.id + 1))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(regionType),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Попытка получить несуществующий тип региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let regionType\r",
+									"    try {\r",
+									"        regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"typeid\", Number(regionType.id + 1))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(regionType),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regiontypes/:typeId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regiontypes",
+								":typeId"
+							],
+							"variable": [
+								{
+									"key": "typeId",
+									"value": "{{typeid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Попытка изменить несуществующий регион",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region, region2\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        region2 = rnd.getRegion(regionType.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", Number(region.id + 1))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region2),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Попытка удалить несуществующий регион",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region, region2\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        region2 = rnd.getRegion(regionType.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", Number(region.id + 1))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region2),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Попытка получить несуществующий регион",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region, region2\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        region2 = rnd.getRegion(regionType.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", Number(region.id + 1))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region2),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Попытка поиска событий внутри несуществующего региона",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {\r",
+									"    const api = new API(pm);\r",
+									"    const rnd = new RandomUtils();\r",
+									"    let region, region2\r",
+									"    try {\r",
+									"        const regionType = await api.addRegionType(rnd.getRegionType());\r",
+									"        region = await api.addRegion(rnd.getRegion(regionType.id));\r",
+									"        region2 = rnd.getRegion(regionType.id);\r",
+									"    } catch(err) {\r",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+									"    }\r",
+									"    pm.collectionVariables.set(\"rid\", Number(region.id + 1))\r",
+									"    pm.request.body.update({\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(region2),\r",
+									"        options: { raw: { language: 'json' } }\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const interval = setInterval(() => {}, 1000);\r",
+									"\r",
+									"setTimeout(async () => \r",
+									"    {\r",
+									"        try {\r",
+									"            await main();\r",
+									"        } catch (e) {\r",
+									"            console.error(e);\r",
+									"        } finally {\r",
+									"            clearInterval(interval);\r",
+									"        }\r",
+									"    },  \r",
+									"    100 \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/regions/:regionId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"regions",
+								":regionId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": "{{rid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"API = class {",
+					"    constructor(postman, verbose = false, baseUrl = \"http://localhost:8080\") {",
+					"        this.baseUrl = baseUrl;",
+					"        this.pm = postman;",
+					"        this._verbose = verbose;",
+					"    }",
+					"",
+					"    async addUser(user, verbose=null) {",
+					"        return this.post(\"/admin/users\", user, \"Ошибка при добавлении нового пользователя: \", verbose);",
+					"    }",
+					"",
+					"    async addCategory(category, verbose=null) {",
+					"        return this.post(\"/admin/categories\", category, \"Ошибка при добавлении новой категории: \", verbose);",
+					"    }",
+					"",
+					"    async addRegionType(regionType, verbose=null) {",
+					"        return this.post(\"/admin/regiontypes\", regionType, \"Ошибка при добавлении нового типа региона: \", verbose);",
+					"    }",
+					"",
+					"    async addRegion(region, verbose=null) {",
+					"        return this.post(\"/admin/regions\", region, \"Ошибка при добавлении нового региона: \", verbose);",
+					"    }",
+					"",
+					"    async addEvent(userId, event, verbose=null) {",
+					"        return this.post(\"/users/\" + userId + \"/events\", event, \"Ошибка при добавлении нового события: \", verbose);",
+					"    }",
+					"",
+					"    async addCompilation(compilation, verbose=null) {",
+					"        return this.post(\"/admin/compilations\", compilation, \"Ошибка при добавлении новой подборки: \", verbose);",
+					"    }",
+					"",
+					"    async publishParticipationRequest(eventId, userId, verbose=null) {",
+					"        return this.post('/users/' + userId + '/requests?eventId=' + eventId, null, \"Ошибка при добавлении нового запроса на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async publishEvent(eventId, verbose=null) {",
+					"        return this.patch('/admin/events/' + eventId, {stateAction: \"PUBLISH_EVENT\"}, \"Ошибка при публикации события\", verbose);",
+					"    }",
+					"    ",
+					"    async rejectEvent(eventId, verbose=null) {",
+					"        return this.patch('/admin/events/' + eventId, {stateAction: \"REJECT_EVENT\"}, \"Ошибка при отмене события\", verbose);",
+					"    }",
+					"",
+					"    async acceptParticipationRequest(eventId, userId, reqId, verbose=null) {",
+					"        return this.patch('/users/' + userId + '/events/' + eventId + '/requests/', {requestIds:[reqId], status: \"CONFIRMED\"}, \"Ошибка при принятии заявки на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async findCategory(catId, verbose=null) {",
+					"        return this.get('/categories/' + catId, null, \"Ошибка при поиске категории по id\", verbose);",
+					"    }",
+					"",
+					"    async findRegionType(typeId, verbose=null) {",
+					"        return this.get('/admin/regiontypes/' + typeId, null, \"Ошибка при поиске типа региона по id\", verbose);",
+					"    }",
+					"",
+					"    async findRegion(regionId, verbose=null) {",
+					"        return this.get('/admin/regions/' + regionId, null, \"Ошибка при поиске региона по id\", verbose);",
+					"    }",
+					"",
+					"    async findCompilation(compId, verbose=null) {",
+					"        return this.get('/compilations/' + compId, null, \"Ошибка при поиске подборки по id\", verbose);",
+					"    }",
+					"",
+					"    async findUser(userId, verbose=null) {",
+					"        return this.get('/admin/users?ids=' + userId, null, \"Ошибка при поиске пользователя по id\", verbose);",
+					"    }",
+					"",
+					"    async post(path, body, errorText = \"Ошибка при выполнении post-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"POST\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async patch(path, body = null, errorText = \"Ошибка при выполнении patch-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"PATCH\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async get(path, body = null, errorText = \"Ошибка при выполнении get-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"GET\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async sendRequest(method, path, body=null, errorText = \"Ошибка при выполнении запроса: \", verbose=null) {",
+					"        return new Promise((resolve, reject) => {",
+					"            verbose = verbose == null ? this._verbose : verbose;",
+					"",
+					"            const request = {",
+					"                url: this.baseUrl + path,",
+					"                method: method,",
+					"                body: body == null ? \"\" : JSON.stringify(body),",
+					"                header: { \"Content-Type\": \"application/json\" },",
+					"            };",
+					"",
+					"            if(verbose) {",
+					"                console.log(\"Отправляю запрос: \", request);",
+					"            }",
+					"",
+					"            try {",
+					"                this.pm.sendRequest(request, (error, response) => {",
+					"                    if(error || (response.code >= 400 && response.code <= 599)) {",
+					"                        let err = error ? error : JSON.stringify(response.json());",
+					"                        console.error(\"При выполнении запроса к серверу возникла ошика.\\n\", err,",
+					"                             \"\\nДля отладки проблемы повторите такой же запрос к вашей программе \" + ",
+					"                             \"на локальном компьютере. Данные запроса:\\n\", JSON.stringify(request));",
+					"",
+					"                        reject(new Error(errorText + err));",
+					"                    }",
+					"",
+					"                    if(verbose) {",
+					"                        console.log(\"Результат обработки запроса: код состояния - \", response.code, \", тело: \", response.json());",
+					"                    }",
+					"",
+					"                    resolve(response.json());",
+					"                });",
+					"            } catch(err) {",
+					"                if(verbose) {",
+					"                    console.error(errorText, err);",
+					"                }",
+					"                return Promise.reject(err);",
+					"            }",
+					"        });",
+					"    }",
+					"};",
+					"",
+					"RandomUtils = class {",
+					"    constructor() {}",
+					"",
+					"    getUser() {",
+					"        return {",
+					"            name: pm.variables.replaceIn('{{$randomFullName}}'),",
+					"            email: pm.variables.replaceIn('{{$randomEmail}}')",
+					"        };",
+					"    }",
+					"",
+					"    getCategory() {",
+					"        return {",
+					"            name: pm.variables.replaceIn('{{$randomWord}}') + Math.floor(Math.random() * 100).toString()",
+					"        };",
+					"    }",
+					"",
+					"    getRegionType() {",
+					"        return {",
+					"            name: pm.variables.replaceIn('{{$randomWord}}') + Math.floor(Math.random() * 100).toString()",
+					"        };",
+					"    }",
+					"",
+					"    getRegion(regionTypeId) {",
+					"        return {",
+					"            name: pm.variables.replaceIn('{{$randomWord}}') + Math.floor(Math.random() * 100).toString(),",
+					"            description: pm.variables.replaceIn('{{$randomLoremParagraphs}}'),",
+					"            region_type: regionTypeId,",
+					"            lat: parseFloat(pm.variables.replaceIn(Math.random() * 140 + -70).toString()),",
+					"            lon: parseFloat(pm.variables.replaceIn(Math.random() * 180 + 0).toString()),",
+					"            radius: parseFloat(pm.variables.replaceIn(Math.random() * 20000 + 0).toString())",
+					"        };",
+					"    }",
+					"",
+					"    getEvent(categoryId) {",
+					"        return {",
+					"            annotation: pm.variables.replaceIn('{{$randomLoremParagraph}}'),",
+					"            category: categoryId,",
+					"            description: pm.variables.replaceIn('{{$randomLoremParagraphs}}'),",
+					"            eventDate: this.getFutureDateTime(),",
+					"            location: {",
+					"                lat: parseFloat(pm.variables.replaceIn('{{$randomLatitude}}')),",
+					"                lon: parseFloat(pm.variables.replaceIn('{{$randomLongitude}}')),",
+					"            },",
+					"            paid: pm.variables.replaceIn('{{$randomBoolean}}'),",
+					"            participantLimit: pm.variables.replaceIn('{{$randomInt}}'),",
+					"            requestModeration: pm.variables.replaceIn('{{$randomBoolean}}'),",
+					"            title: pm.variables.replaceIn('{{$randomLoremSentence}}'),",
+					"        };",
+					"    }",
+					"",
+					"    getCompilation(...eventIds) {",
+					"        return {",
+					"            title: pm.variables.replaceIn('{{$randomLoremSentence}}'),",
+					"            pinned: pm.variables.replaceIn('{{$randomBoolean}}'),",
+					"            events: eventIds",
+					"        };",
+					"    }",
+					"",
+					"    getFutureDateTime(hourShift = 5, minuteShift=0, yearShift=0) {",
+					"        let moment = require('moment');",
+					"",
+					"        let m = moment();",
+					"        m.add(hourShift, 'hour');",
+					"        m.add(minuteShift, 'minute');",
+					"        m.add(yearShift, 'year');",
+					"",
+					"        return m.format('YYYY-MM-DD HH:mm:ss');",
+					"    }",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "name",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "usersCount",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "catid",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "request_body",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "mail",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "response",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "uid",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "catname",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "eid",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "compid",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "toCheck",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "newDataToSet",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "uid1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "reqid",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "catId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "typeId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "typeid",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "regionId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "rid",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
