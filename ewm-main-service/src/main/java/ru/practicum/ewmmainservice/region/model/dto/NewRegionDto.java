@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import static ru.practicum.ewmmainservice.EwmMainServiceConstants.*;
@@ -24,9 +25,13 @@ public class NewRegionDto {
     String name;
     @Size(max = REGION_DESCRIPTION_LENGTH_MAX, message = REGION_DESCRIPTION_SIZE_INCORRECT_MESSAGE)
     String description;
+    @NotNull
     Double lat;
+    @NotNull
     Double lon;
+    @NotNull
     Double radius;
+    @NotNull
     @JsonProperty("region_type")
     Long regionTypeId;
 }

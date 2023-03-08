@@ -20,7 +20,7 @@ import static ru.practicum.ewmmainservice.pagination.PaginationConstant.*;
 @RequestMapping
 @RequiredArgsConstructor
 @Slf4j
-public class LocationTypeController {
+public class RegionTypeController {
     private final RegionTypeService regionTypeService;
 
     @PostMapping(ADMIN_PATH + REGION_TYPE_PATH)
