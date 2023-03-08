@@ -1,8 +1,10 @@
 # java-explore-with-me
 Template repository for ExploreWithMe project.
 
+
 Ссылка на pull request с дополнительной функциональностью
 Администрирование - 1 вариант (добавление локаций)
+https://github.com/Koss-Koss/java-explore-with-me/pull/5
 
 
 Особенности реализации:
